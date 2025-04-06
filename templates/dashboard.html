@@ -508,10 +508,12 @@
                 const message = chatInput.value.trim();
                 if (!message) return;
 
+                console.log(`Sending message to ${currentCity}: ${message}`);
                 addUserMessage(message);
                 chatInput.value = '';
 
                 try {
+                    console.log('Making fetch request to /chat');
                     const response = await fetch('/chat', {
                         method: 'POST',
                         headers: {
@@ -523,11 +525,23 @@
                         })
                     });
 
+                    console.log('Received response:', response.status);
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Server error');
+                    }
+
                     const data = await response.json();
+                    console.log('Parsed response data:', data);
+                    
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
                     addAssistantMessage(data.response);
                 } catch (error) {
-                    console.error('Error:', error);
-                    addAssistantMessage('عذراً، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى.');
+                    console.error('Error in chat:', error);
+                    addAssistantMessage(`عذراً، حدث خطأ في معالجة طلبك: ${error.message}`);
                 }
             }
 
