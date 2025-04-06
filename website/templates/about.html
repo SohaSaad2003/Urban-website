@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Team</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('change_detection') }}">Change Detection</a></li>
+            <li><a href="{{ url_for('analysis') }}">Analysis</a></li>
+            <li><a href="{{ url_for('map') }}">Map</a></li>
+            <li><a href="{{ url_for('about') }}" class="active">About Us</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
+    </nav>
+
+    <div class="about-content">
+        <div class="team-leader">
+            <div class="team-member">
+                <a href="{{ team_members[0].linkedin }}" target="_blank" class="member-link">
+                    <div class="member-image-container">
+                        <img src="{{ url_for('static', filename='images/' + team_members[0].image) }}" alt="{{ team_members[0].name }}" class="member-image">
+                        <div class="member-overlay">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </a>
+                <h3 class="leader-name">Prof. Dr. Amany Sarhan</h3>
+            </div>
+        </div>
+
+        <div class="team-grid">
+            {% for member in team_members[1:] %}
+            <div class="team-member">
+                <a href="{{ member.linkedin }}" target="_blank" class="member-link">
+                    <div class="member-image-container">
+                        <img src="{{ url_for('static', filename='images/' + member.image) }}" alt="{{ member.name }}" class="member-image">
+                        <div class="member-overlay">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="member-info">
+                    <h4 class="member-name">{{ member.name }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 

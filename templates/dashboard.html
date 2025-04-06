@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Urban Evolution Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Dashboard specific styles */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .dashboard-card {
+            background: linear-gradient(135deg,
+                rgba(4, 20, 41, 0.8),
+                rgba(10, 39, 68, 0.8));
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(0, 255, 255, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin: 0;
+        }
+        
+        .card-content {
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #f0f0f0;
+        }
+        
+        .chart-container {
+            height: 200px;
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(0, 255, 255, 0.1) 0%, 
+                rgba(0, 119, 255, 0.1) 50%, 
+                rgba(0, 255, 255, 0.1) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffff;
+            font-style: italic;
+        }
+        
+        .action-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #00ffff, #0077ff);
+            color: #041429;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+        }
+        
+        .dashboard-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(120deg, #00ffff, #0077ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Chat Interface Styles */
+        .chat-interface {
+            background: rgba(4, 20, 41, 0.5);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .city-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .city-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .city-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .city-btn.active {
+            background: linear-gradient(135deg, #00ffff, #0077ff);
+            color: #041429;
+        }
+
+        .chat-container {
+            background: rgba(4, 20, 41, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: rgba(0, 255, 255, 0.1);
+            align-self: flex-end;
+            margin-left: 20%;
+        }
+
+        .assistant-message {
+            background: rgba(0, 119, 255, 0.1);
+            align-self: flex-start;
+            margin-right: 20%;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        #chatInput {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(4, 20, 41, 0.5);
+            color: #f0f0f0;
+        }
+
+        #chatInput:focus {
+            outline: none;
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        #sendMessage {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #00ffff, #0077ff);
+            border: none;
+            border-radius: 5px;
+            color: #041429;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #sendMessage:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(4, 20, 41, 0.3);
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('dashboard') }}" class="active">Dashboard</a></li>
+            <li><a href="{{ url_for('change_detection') }}">Change Detection</a></li>
+            <li><a href="{{ url_for('analysis') }}">Analysis</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="content">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Urban Evolution Dashboard</h1>
+            <p class="dashboard-subtitle">Monitor urban changes, analyze trends, and visualize data across Egypt's evolving landscape</p>
+        </div>
+        
+        <div class="dashboard-container">
+            <!-- AI Assistant Card -->
+            <div class="dashboard-card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <i class="fas fa-robot card-icon"></i>
+                    <h2 class="card-title">AI City Assistant</h2>
+                </div>
+                <div class="card-content">
+                    <div class="chat-interface">
+                        <div class="city-selector">
+                            <button class="city-btn active" data-city="october">6th of October</button>
+                            <button class="city-btn" data-city="madinaty">Madinaty</button>
+                            <button class="city-btn" data-city="ramadan">10th of Ramadan</button>
+                        </div>
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- Messages will appear here -->
+                            </div>
+                            <div class="chat-input-container">
+                                <input type="text" id="chatInput" placeholder="Ask about city services, locations, or recommendations...">
+                                <button id="sendMessage">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line card-icon"></i>
+                    <h2 class="card-title">Urban Growth Overview</h2>
+                </div>
+                <div class="card-content">
+                    <p>Track the expansion of urban areas across Egypt from 2016 to 2024.</p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">8.2%</div>
+                            <div class="stat-label">Annual Growth Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Cities Analyzed</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-placeholder">Growth Trend Visualization</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Change Detection Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-satellite card-icon"></i>
+                    <h2 class="card-title">Change Detection</h2>
+                </div>
+                <div class="card-content">
+                    <p>Monitor land use changes and urban expansion patterns.</p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">1,250</div>
+                            <div class="stat-label">Images Processed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">98%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('change_detection') }}" class="action-button">View Change Detection</a>
+                </div>
+            </div>
+            
+            <!-- Analysis Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-brain card-icon"></i>
+                    <h2 class="card-title">AI Analysis</h2>
+                </div>
+                <div class="card-content">
+                    <p>Leverage our AI models to predict future urban development.</p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">AI Models</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">2025-2030</div>
+                            <div class="stat-label">Prediction Range</div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('analysis') }}" class="action-button">View Analysis</a>
+                </div>
+            </div>
+            
+            <!-- Sustainability Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-leaf card-icon"></i>
+                    <h2 class="card-title">Sustainability Metrics</h2>
+                </div>
+                <div class="card-content">
+                    <p>Track environmental impact and sustainability indicators.</p>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">-12%</div>
+                            <div class="stat-label">Green Space Change</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">+8%</div>
+                            <div class="stat-label">Urban Density</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-placeholder">Sustainability Trend</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-history card-icon"></i>
+                    <h2 class="card-title">Recent Activity</h2>
+                </div>
+                <div class="card-content">
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0, 255, 255, 0.2);">
+                            <strong style="color: #00ffff;">New Analysis</strong> - Cairo metropolitan area changes detected
+                            <div style="font-size: 0.8rem; color: #a0a0a0; margin-top: 0.3rem;">2 hours ago</div>
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0, 255, 255, 0.2);">
+                            <strong style="color: #00ffff;">Data Update</strong> - Alexandria satellite imagery processed
+                            <div style="font-size: 0.8rem; color: #a0a0a0; margin-top: 0.3rem;">Yesterday</div>
+                        </li>
+                        <li style="margin-bottom: 1rem;">
+                            <strong style="color: #00ffff;">Model Training</strong> - Encoder-Decoder model updated
+                            <div style="font-size: 0.8rem; color: #a0a0a0; margin-top: 0.3rem;">3 days ago</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Quick Actions Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <i class="fas fa-bolt card-icon"></i>
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <a href="{{ url_for('change_detection') }}" class="action-button" style="font-size: 0.9rem;">Upload Image</a>
+                        <a href="{{ url_for('analysis') }}" class="action-button" style="font-size: 0.9rem;">Run Analysis</a>
+                        <a href="#" class="action-button" style="font-size: 0.9rem;">Export Data</a>
+                        <a href="#" class="action-button" style="font-size: 0.9rem;">Generate Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendMessage');
+            const cityButtons = document.querySelectorAll('.city-btn');
+            let currentCity = 'october';
+
+            // City selection
+            cityButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    cityButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentCity = button.dataset.city;
+                    // Clear chat when switching cities
+                    chatMessages.innerHTML = '';
+                    addAssistantMessage(getWelcomeMessage(currentCity));
+                });
+            });
+
+            function getWelcomeMessage(city) {
+                switch(city) {
+                    case 'october':
+                        return 'مرحباً بك! أنا مساعدك للتعرف على مدينة السادس من أكتوبر. يمكنك سؤالي عن الخدمات المتوفرة، المناطق السكنية، أو أي معلومات أخرى عن المدينة.';
+                    case 'madinaty':
+                        return 'مرحباً بك! أنا مساعدك للتعرف على مدينة مدينتي. يمكنك سؤالي عن الخدمات المتوفرة، المناطق السكنية، أو أي معلومات أخرى عن المدينة.';
+                    case 'ramadan':
+                        return 'مرحباً بك! أنا مساعدك للتعرف على مدينة العاشر من رمضان. يمكنك سؤالي عن الخدمات المتوفرة، المناطق السكنية، أو أي معلومات أخرى عن المدينة.';
+                }
+            }
+
+            // Add initial welcome message
+            addAssistantMessage(getWelcomeMessage('october'));
+
+            function addUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user-message';
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addAssistantMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message assistant-message';
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            async function handleUserMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+
+                addUserMessage(message);
+                chatInput.value = '';
+
+                try {
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            city: currentCity
+                        })
+                    });
+
+                    const data = await response.json();
+                    addAssistantMessage(data.response);
+                } catch (error) {
+                    console.error('Error:', error);
+                    addAssistantMessage('عذراً، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى.');
+                }
+            }
+
+            sendButton.addEventListener('click', handleUserMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleUserMessage();
+                }
+            });
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 

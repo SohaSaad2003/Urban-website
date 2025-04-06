@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/analysis.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="cyber-theme">
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('change_detection') }}">Change Detection</a></li>
+            <li><a href="{{ url_for('analysis') }}" class="active">Analysis</a></li>
+            <li><a href="{{ url_for('map') }}">Map</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
+    </nav>
+
+    <div class="cyber-background">
+        <div class="grid-overlay"></div>
+        <div class="glow-lines"></div>
+        <div class="particles"></div>
+    </div>
+
+    <div class="analysis-content">
+        <!-- Cyber Header -->
+        <div class="cyber-header">
+            <div class="header-decoration left"></div>
+            <h1 class="cyber-title">Image Analysis</h1>
+            <div class="title-effect"></div>
+            <div class="header-decoration right"></div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-container">
+            <div class="cyber-frame">
+                <div class="frame-corner top-left"></div>
+                <div class="frame-corner top-right"></div>
+                <div class="frame-corner bottom-left"></div>
+                <div class="frame-corner bottom-right"></div>
+                <div class="upload-box" id="uploadBox">
+                    <div class="hologram-effect"></div>
+                    <div class="upload-content">
+                        <i class="fas fa-satellite"></i>
+                        <h3>Upload Image</h3>
+                        <p>Drag & Drop or Click Anywhere</p>
+                        <div class="tech-border"></div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div class="preview" id="imagePreview">
+                        <div class="placeholder">
+                            <i class="fas fa-satellite"></i>
+                            <p>Image preview will appear here</p>
+                        </div>
+                        <div class="scan-effect"></div>
+                        <div class="analysis-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Initial Analysis Results -->
+        <div class="percentage-results">
+            <div class="percentage-box" data-stat="landChange">
+                <div class="box-header">
+                    <div class="header-line"></div>
+                    <h3>Land Change</h3>
+                    <div class="header-line"></div>
+                </div>
+                <div class="percentage-value">0<span class="percentage-symbol">%</span></div>
+                <div class="percentage-bar">
+                    <div class="bar-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="percentage-box" data-stat="emptyLand">
+                <div class="box-header">
+                    <div class="header-line"></div>
+                    <h3>Empty Land</h3>
+                    <div class="header-line"></div>
+                </div>
+                <div class="percentage-value">0<span class="percentage-symbol">%</span></div>
+                <div class="percentage-bar">
+                    <div class="bar-fill" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processed Images Section -->
+        <div class="processed-images">
+            <!-- Classification Image -->
+            <div class="image-container" data-image="classification">
+                <div class="image-box">
+                    <div class="box-header">
+                        <div class="header-line"></div>
+                        <h3>Classification of Regions</h3>
+                        <div class="header-line"></div>
+                    </div>
+                    <div class="result-content">
+                        <div class="cyber-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Classification Result</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NDVI Image and Stats -->
+            <div class="image-container" data-image="ndvi">
+                <div class="image-box">
+                    <div class="box-header">
+                        <div class="header-line"></div>
+                        <h3>NDVI Analysis</h3>
+                        <div class="header-line"></div>
+                    </div>
+                    <div class="result-content">
+                        <div class="cyber-placeholder">
+                            <i class="fas fa-chart-area"></i>
+                            <p>NDVI Result</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vegetation Statistics -->
+                <div class="vegetation-stats">
+                    <div class="percentage-box" data-stat="denseVeg">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Dense Veg.</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="percentage-value">0<span class="percentage-symbol">%</span></div>
+                        <div class="percentage-bar">
+                            <div class="bar-fill" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div class="percentage-box" data-stat="lowVeg">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Low Veg.</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="percentage-value">0<span class="percentage-symbol">%</span></div>
+                        <div class="percentage-bar">
+                            <div class="bar-fill" style="width: 35%"></div>
+                        </div>
+                    </div>
+                    <div class="percentage-box" data-stat="nonVeg">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Non-Veg.</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="percentage-value">0<span class="percentage-symbol">%</span></div>
+                        <div class="percentage-bar">
+                            <div class="bar-fill" style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Button -->
+        <button class="analysis-btn" id="analysisBtn" disabled>
+            <span class="button-text">
+                <i class="fas fa-chart-line"></i>
+                Start Analysis
+            </span>
+            <div class="button-glow"></div>
+            <div class="button-scanline"></div>
+        </button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+</body>
+</html> 

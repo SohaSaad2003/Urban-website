@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Evolution Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splash">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-page" id="main">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('change_detection') }}">Change Detection</a></li>
+                <li><a href="{{ url_for('analysis') }}">Analysis</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+            </ul>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <div class="slider-container">
+                <!-- Navigation Arrows -->
+                <button class="nav-arrow left" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-arrow right" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Slider Content -->
+                <div class="slider-content">
+                    <!-- Section 1: Introduction -->
+                    <div class="slide active">
+                        <article class="main-article">
+                            <h2 class="section-title">Seeing the Future from Above</h2>
+                            <h3 class="section-subtitle">Mapping Change to Shape a Better Tomorrow</h3>
+                            <div class="section-content">
+                                <p class="vision-text">
+                                    What if we could not only observe how cities transform but also predict their future? This is the vision behind our project, where we explore the rapid urban evolution in Egypt. By combining satellite imagery with advanced artificial intelligence, we aim to decode urban changes and set the stage for future predictions.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Section 2: About the Project -->
+                    <div class="slide">
+                        <article class="main-article">
+                            <h2 class="section-title">About the Project</h2>
+                            <div class="section-content">
+                                <p class="vision-text">
+                                    Our work focuses on analyzing the transformation of urban areas in Egypt over the past eight years, from 2016 to 2024. Through this project, we aim to detect changes in urban landscapes, creating a foundation for future expansion to other regions.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Section 3: Key Goals -->
+                    <div class="slide">
+                        <article class="main-article">
+                            <h2 class="section-title">Key Goals</h2>
+                            <div class="section-content">
+                                <h3 class="subsection-title">Unveiling Urban Transformations</h3>
+                                <p class="description">Using satellite imagery, we reveal the extent and nature of changes occurring across Egypt's urban areas.</p>
+                                
+                                <h3 class="subsection-title">AI-Powered Analysis</h3>
+                                <p class="description">Leveraging an Encoder-Decoder architecture, our model captures intricate details of urban changes with precision. Additionally, we integrate sequential networks to predict how these zones might evolve in the future, offering a glimpse into tomorrow's urban landscape.</p>
+                                
+                                <h3 class="subsection-title">Actionable Insights</h3>
+                                <p class="description">Our findings will empower urban planners, architects, and policymakers to align future development with sustainability goals.</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Section 4: Why This Matters -->
+                    <div class="slide">
+                        <article class="main-article">
+                            <h2 class="section-title">Why This Matters</h2>
+                            <div class="section-content">
+                                <h3 class="subsection-title">Focus on the Future</h3>
+                                <p class="description">Urban transformation in Egypt is a significant driver of the country's vision for the future. By analyzing this development, we create a framework for sustainable growth in emerging cities.</p>
+                                
+                                <h3 class="subsection-title">Scalable Solutions</h3>
+                                <p class="description">Starting with selected urban zones, our methodology is designed for scalability, enabling its application to other urban and environmental contexts worldwide.</p>
+                                
+                                <h3 class="subsection-title">Innovative Urban Planning</h3>
+                                <p class="description">The integration of change detection and predictive modeling offers a unique perspective, bridging current analysis with long-term foresight for smarter urban development.</p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Section 5: The Vision -->
+                    <div class="slide">
+                        <article class="main-article">
+                            <h2 class="section-title">The Vision</h2>
+                            <div class="section-content">
+                                <p class="vision-text">
+                                    We are building a robust pipeline that not only detects past and present changes but also predicts the future. With advanced forecasting techniques, we aim to help cities grow intelligently and sustainably.
+                                </p>
+                                <p class="vision-text">
+                                    This project is more than just technology—it's about vision. By turning satellite imagery into actionable insights, we're laying the groundwork for smarter, more resilient urban growth.
+                                </p>
+                                <p class="vision-text highlight">
+                                    The future of cities is written in the changes of today, and with AI, we're ready to read—and shape it.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Slide Indicators -->
+                <div class="slide-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

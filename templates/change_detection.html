@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/change_detection.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="cyber-theme">
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('change_detection') }}" class="active">Change Detection</a></li>
+            <li><a href="{{ url_for('analysis') }}">Analysis</a></li>
+            <li><a href="{{ url_for('map') }}">Map</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+        </ul>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
+    </nav>
+
+    <div class="cyber-background">
+        <div class="grid-overlay"></div>
+        <div class="glow-lines"></div>
+        <div class="particles"></div>
+    </div>
+
+    <div class="change-detection-content">
+        <div class="cyber-header">
+            <div class="header-decoration left"></div>
+            <h1 class="cyber-title">Change Detection
+                <div class="title-effect"></div>
+            </h1>
+            <div class="header-decoration right"></div>
+        </div>
+
+        <div class="upload-container">
+            <div class="upload-section">
+                <div class="cyber-frame">
+                    <div class="frame-corner top-left"></div>
+                    <div class="frame-corner top-right"></div>
+                    <div class="frame-corner bottom-left"></div>
+                    <div class="frame-corner bottom-right"></div>
+                    
+                    <div class="upload-box" id="upload1">
+                        <div class="hologram-effect"></div>
+                        <input type="file" id="image" name="image" accept="image/png,image/jpeg,image/jpg" class="file-input" style="display: none;">
+                        <div class="upload-content">
+                            <i class="fas fa-satellite"></i>
+                            <h3>Upload Image</h3>
+                            <p>Drag & Drop or Click Anywhere</p>
+                            <div class="tech-border"></div>
+                        </div>
+                        <div class="preview" id="preview">
+                            <div class="placeholder">
+                                <i class="fas fa-satellite"></i>
+                                <p>Image preview will appear here</p>
+                            </div>
+                            <div class="scan-effect"></div>
+                            <div class="analysis-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="process-section">
+            <div class="cyber-button-container">
+                <button id="detectButton" class="cyber-button" disabled>
+                    <div class="button-glitch"></div>
+                    <span class="button-text">
+                        <i class="fas fa-satellite-dish"></i>
+                        Detect Changes
+                    </span>
+                    <div class="button-glow"></div>
+                    <div class="button-scanline"></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="cyber-panel">
+                <div class="panel-header">
+                    <h2>Detection Results</h2>
+                    <div class="loading-indicator hidden">
+                        <div class="cyber-loader">
+                            <div class="loader-ring"></div>
+                            <div class="loader-text">Processing Analysis</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-box">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Reference Image (2016)</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="result-content" id="referenceImage">
+                            <div class="cyber-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Reference image will appear here</p>
+                                <div class="analysis-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Current Image</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="result-content" id="currentImage">
+                            <div class="cyber-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Current image will appear here</p>
+                                <div class="analysis-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Difference Map</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="result-content" id="diffMap">
+                            <div class="cyber-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Difference map will appear here</p>
+                                <div class="analysis-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="box-header">
+                            <div class="header-line"></div>
+                            <h3>Detected Changes</h3>
+                            <div class="header-line"></div>
+                        </div>
+                        <div class="result-content" id="changesOverlay">
+                            <div class="cyber-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Changes overlay will appear here</p>
+                                <div class="analysis-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-results hidden">
+                    <div class="result-info">
+                        <div class="info-item">
+                            <span class="info-label">Classified Region:</span>
+                            <span class="info-value" id="classifiedRegion">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Detected Area:</span>
+                            <span class="info-value" id="detectedArea">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Confidence:</span>
+                            <span class="info-value" id="confidence">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Change Percentage:</span>
+                            <span class="info-value" id="changePercentage">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/change_detection.js') }}"></script>
+</body>
+</html> 

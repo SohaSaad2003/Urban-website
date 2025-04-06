@@ -1,0 +1,521 @@
+/* About Page Styles */
+body {
+    background: linear-gradient(135deg, #041429 0%, #0a2744 50%, #041429 100%);
+    background-size: cover;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #ffffff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(4, 20, 41, 0.8), rgba(10, 39, 68, 0.8)),
+        url('../images/background2.png') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.3;
+    z-index: -1;
+    animation: subtlePulse 10s ease-in-out infinite;
+}
+
+.about-content {
+    padding-top: 100px;
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+/* Futuristic Grid Background */
+.about-content::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0,
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0;
+    background-size: 40px 40px;
+    z-index: -1;
+    animation: gridMove 20s linear infinite;
+}
+
+.team-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    background: linear-gradient(120deg, #00ffff, #0077ff, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+.team-title::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #00ffff, #0077ff, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: blur(12px);
+    opacity: 0.7;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+.team-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00ffff, #0077ff, #00ffff, transparent);
+    animation: lineGlow 3s ease-in-out infinite;
+}
+
+/* Team Grid Layout */
+.team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    padding: 0 2rem;
+}
+
+/* Team Leader Styles */
+.team-leader {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.team-leader::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    height: calc(100% + 40px);
+    background: linear-gradient(135deg, rgba(0, 119, 255, 0.1), rgba(0, 255, 255, 0.05));
+    border-radius: 20px;
+    z-index: -1;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Futuristic Corner Decorations */
+.team-leader::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: calc(100% + 60px);
+    background: 
+        linear-gradient(45deg, transparent 48%, #00ffff 49%, transparent 51%) top left,
+        linear-gradient(-45deg, transparent 48%, #00ffff 49%, transparent 51%) top right,
+        linear-gradient(-135deg, transparent 48%, #00ffff 49%, transparent 51%) bottom left,
+        linear-gradient(135deg, transparent 48%, #00ffff 49%, transparent 51%) bottom right;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    z-index: -2;
+    opacity: 0.3;
+    animation: cornerGlow 4s ease-in-out infinite;
+}
+
+.team-leader .team-member {
+    max-width: 400px;
+}
+
+/* Team Members Row */
+.team-members-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+    position: relative;
+}
+
+/* Member Styles */
+.team-member {
+    flex: 0 1 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.team-member:hover {
+    transform: translateY(-15px);
+}
+
+.member-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 119, 255, 0.2);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Futuristic Border Animation */
+.member-image-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #00ffff, #0077ff);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.member-image-container:hover::before {
+    opacity: 1;
+    animation: borderRotate 4s linear infinite;
+}
+
+/* Scanning Line Effect */
+.member-image-container::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    top: -50%;
+    left: -50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.member-image-container:hover::after {
+    opacity: 1;
+    animation: scanLine 2s linear infinite;
+}
+
+.member-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 255, 0.2), 
+        rgba(0, 119, 255, 0.4),
+        rgba(0, 0, 0, 0.8));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-image-container:hover .member-overlay {
+    opacity: 1;
+}
+
+.member-image-container:hover .member-image {
+    transform: scale(1.1) rotate(3deg);
+}
+
+.member-overlay i {
+    font-size: 2.5rem;
+    color: #ffffff;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-overlay i:hover {
+    color: #00ffff;
+    transform: scale(1.2) rotate(360deg);
+}
+
+/* Member Info Styles */
+.member-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.info-background {
+    background: linear-gradient(135deg, 
+        rgba(0, 119, 255, 0.1), 
+        rgba(0, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Holographic Effect */
+.info-background::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(0, 255, 255, 0.1),
+        transparent
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.info-background:hover::before {
+    transform: translateX(50%) rotate(45deg);
+}
+
+/* Leader specific styles */
+.leader .info-background {
+    background: linear-gradient(135deg, 
+        rgba(0, 119, 255, 0.15), 
+        rgba(0, 255, 255, 0.1));
+    padding: 1.5rem;
+    min-width: 400px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.leader-name {
+    background: linear-gradient(120deg, #00ffff, #0077ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin: 0;
+    white-space: nowrap;
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    position: relative;
+    animation: nameGlow 3s ease-in-out infinite;
+}
+
+.member-name {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.member-name:hover {
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    letter-spacing: 3px;
+}
+
+/* Enhanced Animations */
+@keyframes titleGlow {
+    0%, 100% { filter: brightness(1) blur(0); }
+    50% { filter: brightness(1.3) blur(2px); }
+}
+
+@keyframes lineGlow {
+    0%, 100% { opacity: 0.5; width: 150px; filter: blur(0); }
+    50% { opacity: 1; width: 250px; filter: blur(1px); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        border-color: rgba(0, 255, 255, 0.2);
+        transform: translateX(-50%) scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        border-color: rgba(0, 255, 255, 0.4);
+        transform: translateX(-50%) scale(1.02);
+    }
+}
+
+@keyframes borderRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes scanLine {
+    0% { transform: translateY(0) rotate(-45deg); }
+    100% { transform: translateY(200%) rotate(-45deg); }
+}
+
+@keyframes cornerGlow {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.5; transform: translateX(-50%) scale(1.02); }
+}
+
+@keyframes nameGlow {
+    0%, 100% { filter: brightness(1) blur(0); }
+    50% { filter: brightness(1.2) blur(1px); }
+}
+
+@keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .team-members-row {
+        gap: 2rem;
+    }
+
+    .team-member {
+        flex: 0 1 180px;
+    }
+
+    .team-leader .team-member {
+        max-width: 350px;
+    }
+
+    .leader .info-background {
+        min-width: 350px;
+    }
+
+    .leader-name {
+        font-size: 1.8rem;
+    }
+
+    .team-leader::before {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        padding-top: 80px;
+    }
+
+    .team-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+
+    .team-grid {
+        gap: 4rem;
+    }
+
+    .team-members-row {
+        gap: 1.5rem;
+    }
+
+    .team-member {
+        flex: 0 1 160px;
+    }
+
+    .team-leader .team-member {
+        max-width: 300px;
+    }
+
+    .leader .info-background {
+        min-width: 300px;
+    }
+
+    .leader-name {
+        font-size: 1.6rem;
+    }
+
+    .member-name {
+        font-size: 1rem;
+    }
+
+    .team-leader::before {
+        width: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .team-grid {
+        gap: 3rem;
+        padding: 0 1rem;
+    }
+
+    .team-members-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .team-member {
+        flex: 0 1 auto;
+        width: 250px;
+    }
+
+    .team-leader .team-member {
+        max-width: 280px;
+    }
+
+    .leader .info-background {
+        min-width: 280px;
+    }
+
+    .member-overlay i {
+        font-size: 2rem;
+    }
+
+    .leader-name {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+
+    .member-name {
+        font-size: 0.9rem;
+    }
+
+    .team-leader::before {
+        width: 300px;
+    }
+} 
