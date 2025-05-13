@@ -2,53 +2,46 @@
 
 ## 📌 Project Overview
 
-This project aims to **monitor and analyze the urban expansion, environmental changes, and service availability** in Egypt’s **New Administrative Capital** using satellite imagery, machine learning, and interactive dashboards.
+**Urban Website** is a smart system designed to monitor **urban expansion**, **environmental changes**, and **public service availability** in Egypt’s **New Administrative Capital** using satellite imagery, deep learning, and interactive web-based dashboards.
 
-The system combines **remote sensing techniques, deep learning models, and automated change detection** to support smart decision-making and sustainable urban development.
+The system helps city planners and decision-makers detect land use changes, evaluate development trends, and identify missing services across various regions like the New Capital, Madinty, 6th of October, and 10th of Ramadan.
 
 ---
 
 ## 🧠 Features
 
 - 🛰️ **Satellite Image Analysis**  
-  Detect changes in vegetation, construction, and land cover using spectral indices such as NDVI, NDBI, and NDMI.
+  Use of NDVI, NDBI, and NDMI indices to track vegetation, built-up areas, and moisture levels.
 
-- 🧠 **AI-Powered Land Use Classification**  
-  Classify areas into buildings, green spaces, roads, and deserts using deep learning (e.g., CNN/U-Net).
+- 🧠 **AI-Based Land Use Classification**  
+  Deep learning models (e.g., CNN or U-Net) are used to classify land into categories: buildings, green areas, roads, desert, etc.
 
-- 📈 **Change Detection**  
-  Pixel-based comparison of satellite images to identify unauthorized buildings or loss of vegetation.
+- 📈 **Change Detection Tool**  
+  Pixel-by-pixel comparison between satellite images to detect unauthorized constructions or vegetation loss.
 
-- 📊 **Interactive Power BI Dashboard**  
-  View real-time stats, service coverage, and environmental KPIs with filters by area (e.g., Capital, Madinty, 6 October).
+- 📊 **Web-Based Interactive Dashboard**  
+  Built directly into the website – shows real-time visual stats and comparisons between regions with filters and maps.
 
 - 💬 **Smart Chatbot**  
-  A chatbot to help users identify missing services in specific zones and suggest improvements.
+  Suggests missing services in specific blocks and helps users or planners interact with the system for insights.
 
 ---
 
 ## 🛠 Technologies Used
 
-- Python
-- OpenCV
-- Remote Sensing (Sentinel, Landsat)
-- Deep Learning (TensorFlow / PyTorch)
-- Power BI
-- Flask (for chatbot integration)
+- **Frontend**: HTML, CSS, JavaScript  
+- **Backend**: Python, Flask  
+- **AI Models**: TensorFlow / PyTorch  
+- **Image Processing**: OpenCV  
+- **Remote Sensing**: Satellite images (Sentinel/Landsat)  
+- **Dashboard**: Custom-built inside the website  
+- **Chatbot**: Python + Flask with service logic  
 
 ---
 
-## 🤝 Git Instructions for Collaborators
+## 🚀 How to Run the Project Locally
 
-### ✅ Step 1: Accept the Invitation
-
-Check your email or GitHub notifications and **accept the invitation** to collaborate on the repository.
-
----
-
-### 📥 Step 2: Clone the Repository
-
-Run the following command once:
+### 1. 📦 Clone the Repository
 
 ```bash
 git clone https://github.com/SohaSaad2003/Urban-website.git
