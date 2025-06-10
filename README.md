@@ -50,15 +50,10 @@ First, go to your email or GitHub notifications and accept the invitation to col
 
 ### 📥 Step 2: Clone the Repository (once)
 Use this command to download the project to your local machine:
-Bash
-
-
 git clone https://github.com/SohaSaad2003/Urban-website.git
 
 Then move into the folder:
-Bash
-
-
+
 cd Urban-website
 
 ---
@@ -66,10 +61,9 @@ cd Urban-website
 ### 🔄 Step 3: Pull the Latest Code (before you start working)
 
 Before making any changes, always pull the latest version of the project to make sure you're working on the most updated files:
-Bash
-
-
+
 git pull origin main  # or 'master' if that’s the branch name
+
 
 ---
 
@@ -82,18 +76,14 @@ Edit files, add new ones, or do whatever work you need to do.
 ### ✅ Step 5: Add and Commit Your Changes
 
 After finishing your edits:
-Bash
-
-
+
 git add .
 git commit -m "Your message describing the changes"
 
 ---
 
 ### 🚀 Step 6: Push Your Changes to GitHub
-Bash
-
-
+
 git push origin main
 
 ---
