@@ -41,80 +41,79 @@ The system helps city planners and decision-makers detect land use changes, eval
 
 ## 🚀 How to Run the Project Locally
 
-### 1. 📦 Clone the Repository
+## 🛠 Git Instructions for Collaborators
 
-```bash
+### ✅ Step 1: Accept the Invitation
+First, go to your email or GitHub notifications and accept the invitation to collaborate on the repository.
+
+---
+
+### 📥 Step 2: Clone the Repository (once)
+Use this command to download the project to your local machine:
+Bash
+
+
 git clone https://github.com/SohaSaad2003/Urban-website.git
+
+Then move into the folder:
+Bash
+
+
 cd Urban-website
 
 ---
 
-### 🔁 **How to Collaborate on a GitHub Repository**
+### 🔄 Step 3: Pull the Latest Code (before you start working)
 
-#### 🧷 **Step 1: Clone the Repository (First Time Only)**
+Before making any changes, always pull the latest version of the project to make sure you're working on the most updated files:
+Bash
+
+
+git pull origin main  # or 'master' if that’s the branch name
 
-```bash
-git clone https://github.com/SohaSaad2003/Urban-website.git
-```
+---
 
-> Replace `your-username` and `your-repository` with the actual GitHub link.
+### ✍️ Step 4: Make Your Changes
 
-This will download the project to your local machine.
+Edit files, add new ones, or do whatever work you need to do.
 
-#### 📁 **Step 2: Navigate to the Project Directory**
+---
 
-```bash
-cd your-repository
-```
+### ✅ Step 5: Add and Commit Your Changes
 
-#### 🔧 **Step 3: Make Your Changes**
-
-Edit the files you need using your preferred code editor.
-
-#### 🔄 **Step 4: Check the Status**
-
-```bash
-git status
-```
-
-This shows which files have been modified.
-
-#### ➕ **Step 5: Stage the Changes**
-
-```bash
+After finishing your edits:
+Bash
+
+
 git add .
-```
+git commit -m "Your message describing the changes"
 
-Or you can add specific files:
+---
 
-```bash
-git add filename.py
-```
-
-#### 💬 **Step 6: Commit the Changes**
-
-```bash
-git commit -m "Your commit message here"
-```
-
-#### ⬆️ **Step 7: Push the Changes to GitHub**
-
-```bash
+### 🚀 Step 6: Push Your Changes to GitHub
+Bash
+
+
 git push origin main
-```
-
-> If the main branch is named something else (like `master` or `dev`), replace `main` accordingly.
 
 ---
 
-### 🔄 **Later (Whenever You Want to Pull New Updates)**
+### 🔁 Step 7: Repeat
 
-Before making new changes, it's best to sync with the latest version from GitHub:
-
-```bash
-git pull origin main
-```
+- Always do git pull origin main before starting new work.
+- Then follow steps 4 → 6.
 
 ---
 
-Let me know if you want a version with emojis removed or a shorter version for slides!
+### 💡 Notes
+
+- If asked for a username/password during push/pull, make sure you're logged in to GitHub or using a Personal Access Token (PAT) if required.
+- If you get an error about main not existing, check the branch name using:
+  
+ 
+Bash
+
+
+  git branch
+  
+---
