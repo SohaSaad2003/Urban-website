@@ -13,11 +13,11 @@
     <nav class="navbar">
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('chat_page') }}">Chat</a></li>
             <li><a href="{{ url_for('change_detection') }}">Change Detection</a></li>
             <li><a href="{{ url_for('analysis') }}" class="active">Analysis</a></li>
             <li><a href="{{ url_for('image_caption') }}">Image Caption</a></li>
-            <li><a href="{{ url_for('map') }}">Map</a></li>
+            <li><a href="http://127.0.0.1:8080" target="_blank" rel="noopener noreferrer">Dashboard</a></li>
             <li><a href="{{ url_for('about') }}">About Us</a></li>
         </ul>
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">

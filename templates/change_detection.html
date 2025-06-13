@@ -13,10 +13,11 @@
     <nav class="navbar">
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('chat_page') }}">Chat</a></li>
             <li><a href="{{ url_for('change_detection') }}" class="active">Change Detection</a></li>
             <li><a href="{{ url_for('analysis') }}">Analysis</a></li>
             <li><a href="{{ url_for('image_caption') }}">Image Caption</a></li>
+            <li><a href="http://127.0.0.1:8080" target="_blank" rel="noopener noreferrer">Dashboard</a></li>
             <li><a href="{{ url_for('about') }}">About Us</a></li>
         </ul>
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="navbar-logo">
@@ -172,6 +173,26 @@
                         <div class="info-item">
                             <span class="info-label">Change Percentage:</span>
                             <span class="info-value" id="changePercentage">-</span>
+                        </div>
+                    </div>
+                    <div id="alertMessage" class="alert-message hidden">
+                        <div class="alert-content">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="alert-text">
+                                <h3>⚠️ Warning Alert</h3>
+                                <p id="alertText"></p>
+                                <div class="alert-details">
+                                    <span class="change-percentage-label">Change Detected:</span>
+                                    <span class="change-percentage-value" id="alertChangePercentage">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert-actions">
+                            <button class="alert-close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

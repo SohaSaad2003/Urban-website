@@ -157,6 +157,10 @@ def home():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/chat_page')
+def chat_page():
+    return render_template('chat.html')
+
 @app.route('/about')
 def about():
     team_members = [
@@ -206,7 +210,7 @@ def map():
     return render_template('index.html')
 
 @app.route('/chat', methods=['POST'])
-def chat():
+def chat_api():
     try:
         data = request.get_json()
         message = data.get('message')

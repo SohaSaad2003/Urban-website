@@ -223,19 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error(data.error || 'Unknown error occurred');
                 }
 
-                // Update result images
-                document.getElementById('referenceImage').innerHTML = `<img src="${data.reference_image}" alt="Reference Image">`;
-                document.getElementById('currentImage').innerHTML = `<img src="${data.processed_image}" alt="Current Image">`;
-                document.getElementById('diffMap').innerHTML = `<img src="${data.diff_map}" alt="Difference Map">`;
-                document.getElementById('changesOverlay').innerHTML = `<img src="${data.contour_overlay}" alt="Changes Overlay">`;
-
-                // Update analysis results
-                document.getElementById('classifiedRegion').textContent = data.area || 'N/A';
-                document.getElementById('detectedArea').textContent = formatNumber(data.total_change_area) || 'N/A';
-                document.getElementById('confidence').textContent = data.confidence ? `${(data.confidence * 100).toFixed(2)}%` : 'N/A';
-                document.getElementById('changePercentage').textContent = data.change_percentage ? `${data.change_percentage.toFixed(2)}%` : 'N/A';
-
-                document.querySelector('.analysis-results').classList.remove('hidden');
+                displayResults(data);
 
             } catch (error) {
                 console.error('Error processing image:', error);
@@ -245,6 +233,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 detectButton.disabled = false;
             }
         });
+    }
+
+    function displayResults(data) {
+        // Show the results section
+        document.querySelector('.analysis-results').classList.remove('hidden');
+        
+        // Update the result values
+        document.getElementById('classifiedRegion').textContent = data.area;
+        document.getElementById('detectedArea').textContent = data.detected_area.toFixed(2);
+        document.getElementById('confidence').textContent = (data.confidence * 100).toFixed(2) + '%';
+        document.getElementById('changePercentage').textContent = data.change_percentage.toFixed(2) + '%';
+        
+        // Handle alert message
+        const alertMessage = document.getElementById('alertMessage');
+        const alertText = document.getElementById('alertText');
+        const alertChangePercentage = document.getElementById('alertChangePercentage');
+        
+        if (data.alert) {
+            alertMessage.classList.remove('hidden');
+            alertText.textContent = data.alert_message;
+            alertChangePercentage.textContent = data.change_percentage.toFixed(2) + '%';
+            
+            // Add close button functionality
+            const closeBtn = alertMessage.querySelector('.alert-close-btn');
+            closeBtn.onclick = () => {
+                alertMessage.classList.add('hidden');
+            };
+            
+            // Add sound effect for alert
+            const alertSound = new Audio('/static/sounds/alert.mp3');
+            alertSound.play().catch(e => console.log('Audio play failed:', e));
+        } else {
+            alertMessage.classList.add('hidden');
+        }
+        
+        // Update images
+        document.getElementById('referenceImage').innerHTML = `<img src="${data.reference_image}" alt="Reference Image">`;
+        document.getElementById('currentImage').innerHTML = `<img src="${data.processed_image}" alt="Current Image">`;
+        document.getElementById('diffMap').innerHTML = `<img src="${data.diff_map}" alt="Difference Map">`;
+        document.getElementById('changesOverlay').innerHTML = `<img src="${data.contour_overlay}" alt="Changes Overlay">`;
     }
 
     function formatNumber(num) {

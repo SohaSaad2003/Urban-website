@@ -11,3 +11,4 @@ geopy==2.4.1
 torch==2.2.1
 Pillow==10.2.0
 transformers==4.38.2 
+gunicorn
